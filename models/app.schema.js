@@ -2,11 +2,12 @@ var restful = require('node-restful')
 var mongoose = restful.mongoose
 
 var iot = new mongoose.Schema({
+    
 
+    timestamp : String ,
     iot_id : String ,
     temperature : String ,
-    timestamp : String ,
-    relative_humidty : String 
+    relative_humidity : String 
 
 })
 
