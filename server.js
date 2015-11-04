@@ -14,9 +14,20 @@ app.use(express.static('public'))
 
 
 app.use('/', require('./routes/api.js'))
-//app.use('/', require('./routes/member.api.js'))
+app.use('/', require('./routes/member.api.js'))
 
-
+app.delete('/api/iot/:id', function (req, res) {
+  Model.findById(req.params.id, function (err, Model) {
+    Model.remove(function (err) {
+      if (!err) {
+        console.log('removed')
+        return res.send('')
+      } else {
+        console.log(err)
+      }
+    })
+  })
+})
 
 app.listen(3000)
 console.log('run in 3000')
