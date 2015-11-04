@@ -106,5 +106,7 @@ angular.module('app', [])
       
     }
 
-
+   iot.login = function (log){
+	 console.log(log)
+   }
   })
