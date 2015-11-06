@@ -60,7 +60,7 @@ angular.module('app', [])
 
  iot.graph = function(){
              
-      console.log("graph working") 
+      //console.log("graph working") 
       $http.get('/api/iot')
               .then(function success (response) {
          
@@ -69,34 +69,35 @@ angular.module('app', [])
                               datasets: [
                                   {
                                       label: "temperature",
-                                      fillColor: "rgba(255,0,0,0.1)",
-                                      strokeColor: "rgba(255,0,0,1)",
-                                      pointColor: "rgba(255,0,0,1)",
+                                      fillColor: "rgba(132,112,255,0.1)",
+                                      strokeColor: "rgba(132,112,255,1)",
+                                      pointColor: "rgba(132,112,255,1)",
                                       pointStrokeColor: "#fff",
                                       pointHighlightFill: "#fff",
-                                      pointHighlightStroke: "rgba(220,220,220,1)",
+                                      //pointHighlightStroke: "rgba(220,220,220,1)",
                                       data: []
                                   },
                                   {
                                       label: "relative_humidity",
-                                      fillColor: "rgba(69,187,91,0.1)",
-                                      strokeColor: "rgba(69,187,91,1)",
-                                      pointColor: "rgba(69,187,91,1)",
+                                      fillColor: "rgba(255,192,203,0.1)",
+                                      strokeColor: "rgba(255,193,193,1)",
+                                      pointColor: "rgba(255,193,193,1)",
                                       pointStrokeColor: "#fff",
                                       pointHighlightFill: "#fff",
-                                      pointHighlightStroke: "rgba(151,187,205,1)",
+                                     // pointHighlightStroke: "rgba(151,187,205,1)",
                                       data: []
                                   }
                               ]
                           };
 
-               var ctx = document.getElementById("iot").getContext("2d")
-               var myLineChart = new Chart(ctx).Line(data);
+               var CtoX = document.getElementById("iot").getContext("2d")
+               var toChart = new Chart(CtoX).Line(data)
 
                
                   for(var i =0;i<response.data.length;i++){
-                    if (response.data[i].iot_id==1){
-                         myLineChart.addData([response.data[i].temperature, response.data[i].relative_humidity] ,response.data[i].timestamp);
+                    if (response.data[i].iot_id==1){   
+                         //toChart.addData([response.data[i].temperature, response.data[i].relative_humidity] ,response.data[i].timestamp)
+                         toChart.addData([response.data[i].temperature, response.data[i].relative_humidity] ,response.timestamp)
                        }
                    
                 }
@@ -108,25 +109,25 @@ angular.module('app', [])
       
     }
 
-   //iot.login = function (log){
-	 //console.log(log)
-   //}
-   iot.login = function (data) {
-      console.log(data.username+" "+data.password)
-         $http.post('/login', {username : data.username , password : data.password })
-            .then(function success (response) {
-              console.log(response)
-              if(response.data[0].username == data.username && response.data[0].password == data.password){
-                console.log("have user")
-                window.location = 'report.html    '
-              }
-              else {
-                window.location = 'index.html'
-              }
-              alert('Success')
-            }, function error (response) {
-              alert(response.data.message)
-            })
+   iot.login = function (log){
+	console.log(log)
+   }
+		/*   iot.login = function (data) {
+		      console.log(data.username+" "+data.password)
+		         $http.post('/login', {username : data.username , password : data.password })
+		            .then(function success (response) {
+		              console.log(response)
+		              if(response.data[0].username == data.username && response.data[0].password == data.password){
+		                console.log("have user")
+		                window.location = 'report.html    '
+		              }
+		              else {
+		                window.location = 'index.html'
+		              }
+		              alert('Success')
+		            }, function error (response) {
+		              alert(response.data.message)
+		            })
 
-    }
+		    }  */
   })
