@@ -29,10 +29,12 @@ angular.module('app', [])
         })
     }
 
+  //iot.toDate =  function(date){
+   //		return moment(date).format('MMMM Do YYYY , h:mm:ss a')
+  //}
   iot.toDate =  function(date){
-   		return moment(date).format('MMMM Do YYYY , h:mm:ss a')
-  }
-
+      return moment(date).format("MMM Do YY")
+    }
   iot.delete = function (id, index) {
       console.log(id)
       $http.delete('/api/iot/' + id)
@@ -106,7 +108,25 @@ angular.module('app', [])
       
     }
 
-   iot.login = function (log){
-	 console.log(log)
-   }
+   //iot.login = function (log){
+	 //console.log(log)
+   //}
+   iot.login = function (data) {
+      console.log(data.username+" "+data.password)
+         $http.post('/login', {username : data.username , password : data.password })
+            .then(function success (response) {
+              console.log(response)
+              if(response.data[0].username == data.username && response.data[0].password == data.password){
+                console.log("have user")
+                window.location = 'report.html    '
+              }
+              else {
+                window.location = 'index.html'
+              }
+              alert('Success')
+            }, function error (response) {
+              alert(response.data.message)
+            })
+
+    }
   })
